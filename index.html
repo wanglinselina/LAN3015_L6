@@ -31,6 +31,14 @@
         .revised-box label { font-weight: bold; color: #b91c1c; display: block; margin-bottom: 5px; font-size: 0.9em;}
         .revised-box textarea { border-color: #fca5a5; background: #fef2f2; }
 
+        /* Export/Import Buttons */
+        .btn-mini-export { background-color: #059669; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.85em; cursor: pointer; margin-top: 8px; font-weight: bold; display: inline-block;}
+        .btn-mini-export:hover { background-color: #047857; }
+        
+        .leader-zone { background: #f1f5f9; padding: 20px; border-radius: 8px; border: 2px dashed #94a3b8; text-align: center; margin-top: 20px; }
+        .btn-import { background-color: #0284c7; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 15px;}
+        .btn-import:hover { background-color: #0369a1; }
+
         .teacher-feedback-box { background: #eff6ff; padding: 15px; border-radius: 8px; border: 1px dashed #93c5fd; margin-bottom: 20px; }
         .teacher-feedback-box label { font-weight: bold; color: #1e3a8a; }
 
@@ -51,7 +59,7 @@
 <div class="container">
     <div class="header">
         <h1>🏆 【賓客訪港】會議規劃與協作工作檯</h1>
-        <p>小組共編 ➡️ 老師批改 ➡️ 修正與排程定案</p>
+        <p>單人分工 ➡️ 組長統整 ➡️ 老師批改 ➡️ 修正與排程</p>
     </div>
 
     <div class="section">
@@ -63,8 +71,8 @@
 
     <!-- 階段一：草擬發言 -->
     <div class="section">
-        <h2><span>👤 階段一：小組首輪發言草稿 (共編區)</span></h2>
-        <p style="font-size: 0.9em; color: #475569;">請組員輪流根據自己的「資料卡」任務，在左側藍字區域填寫【初版草稿】。完成後匯出第一版給老師。</p>
+        <h2><span>👤 階段一：小組首輪發言草稿 (分工區)</span></h2>
+        <p style="font-size: 0.9em; color: #475569;">請各位組員找到自己的角色區塊，填寫姓名與「初版草稿」，完成後點擊自己區塊下方的「匯出草稿 (.json)」，並傳給組長。</p>
 
         <!-- P1 主席 -->
         <div class="role-block chairman">
@@ -77,6 +85,7 @@
                 <div class="draft-box">
                     <label>📝 初版草稿 (交給老師前)：</label>
                     <textarea id="draft_p1" placeholder="請草擬你的開場白與行程建議..."></textarea>
+                    <div style="text-align: right;"><button class="btn-mini-export" onclick="exportRole('p1', '主席陳達志')">💾 匯出我的草稿 (.json)</button></div>
                 </div>
                 <div class="revised-box">
                     <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
@@ -96,6 +105,7 @@
                 <div class="draft-box">
                     <label>📝 初版草稿 (交給老師前)：</label>
                     <textarea id="draft_p2" placeholder="請草擬你的行程建議與理據..."></textarea>
+                    <div style="text-align: right;"><button class="btn-mini-export" onclick="exportRole('p2', '張緯翎')">💾 匯出我的草稿 (.json)</button></div>
                 </div>
                 <div class="revised-box">
                     <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
@@ -115,6 +125,7 @@
                 <div class="draft-box">
                     <label>📝 初版草稿 (交給老師前)：</label>
                     <textarea id="draft_p3" placeholder="請草擬你的行程建議與理據..."></textarea>
+                    <div style="text-align: right;"><button class="btn-mini-export" onclick="exportRole('p3', '王芷君')">💾 匯出我的草稿 (.json)</button></div>
                 </div>
                 <div class="revised-box">
                     <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
@@ -134,6 +145,7 @@
                 <div class="draft-box">
                     <label>📝 初版草稿 (交給老師前)：</label>
                     <textarea id="draft_p4" placeholder="請草擬你的行程建議與理據..."></textarea>
+                    <div style="text-align: right;"><button class="btn-mini-export" onclick="exportRole('p4', '謝芝婷')">💾 匯出我的草稿 (.json)</button></div>
                 </div>
                 <div class="revised-box">
                     <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
@@ -153,6 +165,7 @@
                 <div class="draft-box">
                     <label>📝 初版草稿 (交給老師前)：</label>
                     <textarea id="draft_p5" placeholder="請草擬你的行程建議與理據..."></textarea>
+                    <div style="text-align: right;"><button class="btn-mini-export" onclick="exportRole('p5', '黃宜恩')">💾 匯出我的草稿 (.json)</button></div>
                 </div>
                 <div class="revised-box">
                     <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
@@ -160,8 +173,15 @@
                 </div>
             </div>
         </div>
-
-        <button class="btn-export-1" onclick="exportDraftWord()">📥 [階段一] 匯出小組「初版草稿」交給老師批改</button>
+        
+        <!-- 組長專區 -->
+        <div class="leader-zone">
+            <h3 style="margin-top:0; color:#0369a1;">👑 組長合併專區</h3>
+            <p style="font-size: 0.9em; color: #475569;">請組長點擊下方按鈕，一次選取組員傳給你的所有 <code>.json</code> 檔案，系統會自動將資料填入對應格子。</p>
+            <input type="file" id="importFiles" multiple accept=".json" style="display:none;" onchange="importRoles(event)">
+            <button class="btn-import" onclick="document.getElementById('importFiles').click()">📂 批量匯入組員草稿</button>
+            <button class="btn-export-1" onclick="exportDraftWord()">📥 [階段一] 匯出小組「初版草稿」(Word) 交給老師批改</button>
+        </div>
     </div>
 
     <!-- 階段二：修正與最終行程表 -->
@@ -170,7 +190,7 @@
         
         <div class="teacher-feedback-box">
             <label>💬 老師/AI 的批改與建議 (請組長將評語貼在此處供全組參考)：</label>
-            <textarea id="teacherFeedback" placeholder="把老師發還的建議貼在這裡，然後回到上方紅色框框填寫修正後的實戰稿..."></textarea>
+            <textarea id="teacherFeedback" placeholder="把老師發還的建議貼在這裡，然後大家回到上方紅色框框填寫修正後的實戰稿..."></textarea>
         </div>
 
         <p style="font-size: 0.9em; color: #475569;">請全組使用「修正後的實戰稿」進行口語會議。面對五人衝突的建議，請協調出一份大家都能接受的最終行程表。</p>
@@ -209,6 +229,57 @@
 <script>
     const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
 
+    // 單人草稿匯出 (.json)
+    function exportRole(roleKey, roleLabel) {
+        const nameVal = document.getElementById('name_' + roleKey).value || '未填寫姓名';
+        const draftVal = document.getElementById('draft_' + roleKey).value || '';
+        const revisedVal = document.getElementById('revised_' + roleKey).value || '';
+        
+        const data = {
+            roleKey: roleKey,
+            name: nameVal,
+            draft: draftVal,
+            revised: revisedVal
+        };
+        
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${nameVal}_${roleLabel}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // 批量草稿匯入 (.json)
+    function importRoles(event) {
+        const files = event.target.files;
+        if (files.length === 0) return;
+        
+        let successCount = 0;
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.roleKey) {
+                        if(data.name) document.getElementById('name_' + data.roleKey).value = data.name;
+                        if(data.draft) document.getElementById('draft_' + data.roleKey).value = data.draft;
+                        if(data.revised) document.getElementById('revised_' + data.roleKey).value = data.revised;
+                        successCount++;
+                    }
+                    if (successCount === files.length) {
+                        alert(`成功匯入 ${successCount} 份組員資料！請確認內容後匯出 Word 檔。`);
+                    }
+                } catch (err) {
+                    console.error("檔案解析失敗:", err);
+                }
+            };
+            reader.readAsText(file);
+        });
+        event.target.value = ''; // 重置 input
+    }
+
     // 匯出第一版 (僅初版草稿)
     function exportDraftWord() {
         const gName = getVal('groupName');
@@ -231,29 +302,28 @@
             <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>會議日期：</strong> ${gDate}</p>
             
             <div class="box">
-                <p class="name">主席 (陳達志) - 飾演者：${getVal('name_p1')}</p>
+                <p class="name">主席 (陳達志) - ${getVal('name_p1')}</p>
                 <p>${getVal('draft_p1')}</p>
             </div>
             <div class="box">
-                <p class="name">與會者 A (張緯翎) - 飾演者：${getVal('name_p2')}</p>
+                <p class="name">與會者 A (張緯翎) - ${getVal('name_p2')}</p>
                 <p>${getVal('draft_p2')}</p>
             </div>
             <div class="box">
-                <p class="name">與會者 B (王芷君) - 飾演者：${getVal('name_p3')}</p>
+                <p class="name">與會者 B (王芷君) - ${getVal('name_p3')}</p>
                 <p>${getVal('draft_p3')}</p>
             </div>
             <div class="box">
-                <p class="name">與會者 C (謝芝婷) - 飾演者：${getVal('name_p4')}</p>
+                <p class="name">與會者 C (謝芝婷) - ${getVal('name_p4')}</p>
                 <p>${getVal('draft_p4')}</p>
             </div>
             <div class="box">
-                <p class="name">與會者 D (黃宜恩) - 飾演者：${getVal('name_p5')}</p>
+                <p class="name">與會者 D (黃宜恩) - ${getVal('name_p5')}</p>
                 <p>${getVal('draft_p5')}</p>
             </div>
         </body>
         </html>
         `;
-
         downloadDoc(htmlContent, `${gName}_初版草稿.doc`);
     }
 
@@ -289,30 +359,29 @@
             </div>
 
             <h2>💬 組員發言修正對比</h2>
-            
             <div class="box">
                 <p><strong>主席 (陳達志) - ${getVal('name_p1')}</strong></p>
-                <p class="draft">[初版] ${getVal('draft_p1')}</p>
+                <p class="draft">[初稿] ${getVal('draft_p1')}</p>
                 <p class="revised">[最終版] ${getVal('revised_p1')}</p>
             </div>
             <div class="box">
                 <p><strong>與會者 A (張緯翎) - ${getVal('name_p2')}</strong></p>
-                <p class="draft">[初版] ${getVal('draft_p2')}</p>
+                <p class="draft">[初稿] ${getVal('draft_p2')}</p>
                 <p class="revised">[最終版] ${getVal('revised_p2')}</p>
             </div>
             <div class="box">
                 <p><strong>與會者 B (王芷君) - ${getVal('name_p3')}</strong></p>
-                <p class="draft">[初版] ${getVal('draft_p3')}</p>
+                <p class="draft">[初稿] ${getVal('draft_p3')}</p>
                 <p class="revised">[最終版] ${getVal('revised_p3')}</p>
             </div>
             <div class="box">
                 <p><strong>與會者 C (謝芝婷) - ${getVal('name_p4')}</strong></p>
-                <p class="draft">[初版] ${getVal('draft_p4')}</p>
+                <p class="draft">[初稿] ${getVal('draft_p4')}</p>
                 <p class="revised">[最終版] ${getVal('revised_p4')}</p>
             </div>
             <div class="box">
                 <p><strong>與會者 D (黃宜恩) - ${getVal('name_p5')}</strong></p>
-                <p class="draft">[初版] ${getVal('draft_p5')}</p>
+                <p class="draft">[初稿] ${getVal('draft_p5')}</p>
                 <p class="revised">[最終版] ${getVal('revised_p5')}</p>
             </div>
 
@@ -326,7 +395,6 @@
         </body>
         </html>
         `;
-
         downloadDoc(htmlContent, `${gName}_最終決策報告.doc`);
     }
 
