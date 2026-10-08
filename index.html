@@ -72,7 +72,7 @@
                 <option value="chen">陳達志 (會議主席 / 採購部主任)</option>
                 <option value="zhang">張緯翎 (與會者 / 採購部主任)</option>
                 <option value="wang">王芷君 (與會者 / 採購部主任)</option>
-                <option value="xie">謝芝婷 (與會者 / 採購部助理)</option>
+                <option value="xie">謝芝婷 (與會者 / 採購部主任)</option>
                 <option value="huang">黃宜恩 (與會者 / 秘書)</option>
             </select>
         </div>
@@ -80,40 +80,41 @@
         <!-- 任務卡 (根據選擇動態顯示) -->
         <div id="task-chen" class="task-card">
             <h3>🎯 你的任務 (陳達志)：</h3>
-            <p><strong>行程建議：</strong>第一天抵港太累不排活動。第二天上午參觀總部/會議，下午參觀時代廣場。第三天上午參觀北京道分店 (人流最多)。<br>
-            <strong>主席任務：</strong>必須交代開會背景，並引導同事發言。</p>
+            <p><strong>行程建議：</strong>第一天抵港太累不排活動。第二天上午參觀總部/會議，下午參觀時代廣場。第三天上午參觀北京道分店 (人流最多)[cite: 13]。<br>
+            <strong>主席任務：</strong>必須交代開會背景，並引導同事發言[cite: 13]。</p>
         </div>
         <div id="task-zhang" class="task-card">
             <h3>🎯 你的任務 (張緯翎)：</h3>
-            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀彌敦道分店，下午參觀時代廣場 (集中在第二天可省租車費)。</p>
+            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀彌敦道分店，下午參觀時代廣場 (集中在第二天可省租車費)[cite: 11]。</p>
         </div>
         <div id="task-wang" class="task-card">
             <h3>🎯 你的任務 (王芷君)：</h3>
-            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀時代廣場，下午參觀西洋菜南街分店 (先總部後門市，最後一天純遊覽)。</p>
+            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀時代廣場，下午參觀西洋菜南街分店 (先總部後門市，最後一天純遊覽)[cite: 12]。</p>
         </div>
         <div id="task-xie" class="task-card">
             <h3>🎯 你的任務 (謝芝婷)：</h3>
-            <p><strong>行程建議：</strong>第一天下午總部/會議。第二天上午時代廣場。第三天上午西洋菜南街分店 (分三天進行，以免客人勞累走馬看花)。</p>
+            <p><strong>行程建議：</strong>第一天下午總部/會議。第二天上午時代廣場。第三天上午西洋菜南街分店 (分三天進行，以免客人勞累走馬看花)[cite: 9]。</p>
         </div>
         <div id="task-huang" class="task-card">
             <h3>🎯 你的任務 (黃宜恩)：</h3>
-            <p><strong>行程建議：</strong>第一天下午新世紀廣場門市。第二天上午彌敦道分店。第三天上午才參觀總部與會議 (集中旺角免舟車勞頓，最後一天會議可作總結)。</p>
+            <p><strong>行程建議：</strong>第一天下午新世紀廣場門市。第二天上午彌敦道分店。第三天上午才參觀總部與會議 (集中旺角免舟車勞頓，最後一天會議可作總結)[cite: 10]。</p>
         </div>
 
         <label style="font-weight: bold; color: #334155;">📝 請運用「論點＋論據」草擬你的發言稿：</label>
+        <p style="font-size: 0.85em; color: #64748b; margin-top: 0;">寫完後請點擊下方按鈕匯出 Word，並繳交給老師批改。請靜待老師發還講評後再進行步驟二。</p>
         <textarea id="draftText" placeholder="請寫出你的建議，並詳細說明背後的原因與數據支持..."></textarea>
-        <button class="btn-mini" onclick="copyDraft()">📋 複製草稿 (準備貼給 AI 批改)</button>
+        <button class="btn-mini" onclick="exportDraftWord()">📥 匯出首輪草稿 (Word) 交給老師</button>
     </div>
 
     <!-- 復盤區 -->
     <div class="section">
         <h2>🔍 步驟二：溝通漏斗除錯與復盤</h2>
         <div class="reflection-box">
-            <h3>⚠️ 收到 AI 批改成績了嗎？請填寫復盤報告：</h3>
-            <p style="font-size: 0.9em; color: #7f1d1d;">1. AI 指出你的發言稿在哪裡出現了「溝通漏斗」？（例如：理據不充分、語氣不佳、忘記引導發言）</p>
+            <h3>⚠️ 收到老師發還的批改講評了嗎？請填寫復盤報告：</h3>
+            <p style="font-size: 0.9em; color: #7f1d1d;">1. 老師的講評指出你的發言稿在哪裡出現了「溝通漏斗」？（例如：理據不充分、語氣不佳、沒有針對議題）</p>
             <textarea id="reflection1" style="min-height: 60px;" placeholder="寫下你的反思..."></textarea>
             
-            <p style="font-size: 0.9em; color: #7f1d1d; margin-top: 10px;">2. 請寫出吸收 AI 建議後，修正過的【完美版發言稿】：</p>
+            <p style="font-size: 0.9em; color: #7f1d1d; margin-top: 10px;">2. 請寫出吸收老師建議後，修正過的【完美版發言稿】：</p>
             <textarea id="reflection2" style="min-height: 100px; border-color:#fca5a5;" placeholder="請寫下你準備用來進行小組錄音實戰的最終台詞..."></textarea>
         </div>
     </div>
@@ -197,21 +198,63 @@
         }
     }
 
-    // Copy Draft
-    function copyDraft() {
-        const text = document.getElementById('draftText');
-        text.select();
-        document.execCommand('copy');
-        alert("已複製草稿！請前往 AI 批改系統貼上你的內容。");
+    // Export Draft Only (For Step 1)
+    function exportDraftWord() {
+        const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
+        const gName = getVal('groupName');
+        const sName = getVal('studentName');
+        const roleSelect = document.getElementById('roleSelect');
+        const draft = getVal('draftText');
+
+        if (!roleSelect.value) {
+            alert("⚠️ 請先在上方下拉選單選擇你的角色！");
+            return;
+        }
+        
+        const role = roleSelect.options[roleSelect.selectedIndex].text;
+
+        const htmlContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+        <meta charset='utf-8'>
+        <title>首輪發言草稿</title>
+        <style>
+            body { font-family: 'Microsoft YaHei', sans-serif; line-height: 1.6; }
+            h1 { color: #0284c7; border-bottom: 2px solid #0284c7; padding-bottom: 10px; }
+            .box { border: 1px solid #cbd5e1; padding: 15px; background-color: #f8fafc; }
+        </style>
+        </head>
+        <body>
+            <h1>【賓客訪港】首輪發言草稿</h1>
+            <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>學生姓名：</strong> ${sName} &nbsp;&nbsp;&nbsp; <strong>擔任角色：</strong> ${role}</p>
+            <div class="box">
+                <p>${draft}</p>
+            </div>
+            <br>
+            <p style="color:gray; font-size:12px;">（老師請針對學生的論點組織與理據提供講評）</p>
+        </body>
+        </html>
+        `;
+
+        const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${sName}_${role}_草稿.doc`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
-    // Export to Word
+    // Export Final Full Report (For Step 3)
     function exportToWord() {
         const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
         
         const gName = getVal('groupName');
         const sName = getVal('studentName');
-        const role = document.getElementById('roleSelect').options[document.getElementById('roleSelect').selectedIndex].text;
+        const roleSelect = document.getElementById('roleSelect');
+        const role = roleSelect.options[roleSelect.selectedIndex] ? roleSelect.options[roleSelect.selectedIndex].text : '未選擇';
         
         const draft = getVal('draftText');
         const ref1 = getVal('reflection1');
@@ -237,11 +280,11 @@
             <h1>【賓客訪港】會議規劃與除錯復盤報告</h1>
             <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>學生姓名：</strong> ${sName} &nbsp;&nbsp;&nbsp; <strong>擔任角色：</strong> ${role}</p>
             
-            <h2>📝 步驟一：初版草稿 (被 AI 揪錯前)</h2>
+            <h2>📝 步驟一：初版草稿 (被老師揪錯前)</h2>
             <div class="box"><p>${draft}</p></div>
             
             <h2>🔍 步驟二：溝通漏斗除錯復盤</h2>
-            <p><strong>1. AI 指出的盲點與我的反思：</strong></p>
+            <p><strong>1. 老師指出的盲點與我的反思：</strong></p>
             <div class="box-red"><p>${ref1}</p></div>
             <p><strong>2. 修正後的完美實戰講稿：</strong></p>
             <div class="box-red"><p>${ref2}</p></div>
