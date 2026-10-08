@@ -3,126 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【賓客訪港】會議溝通與行程規劃工作檯</title>
+    <title>【賓客訪港】會議規劃與協作工作檯</title>
     <style>
         :root { --primary: #0284c7; --secondary: #b45309; --bg: #f8fafc; --white: #ffffff; --text: #334155; }
         body { font-family: 'Microsoft YaHei', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: var(--text); line-height: 1.6; }
-        .container { max-width: 1000px; margin: 0 auto; background: var(--white); border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; padding-bottom: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; background: var(--white); border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; padding-bottom: 20px; }
         .header { background: var(--primary); color: var(--white); padding: 25px 20px; text-align: center; }
         .header h1 { margin: 0; font-size: 1.6em; letter-spacing: 1px; }
         
-        .timer-container { background: #e0f2fe; color: #0369a1; padding: 10px; text-align: center; font-size: 1.2em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 15px; border-bottom: 1px solid #bae6fd;}
-        .timer-btn { background: var(--primary); border: none; color: white; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .timer-btn:hover { background: #0369a1; }
-
         .section { padding: 20px 25px; border-bottom: 1px solid #e2e8f0; }
-        h2 { color: var(--secondary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 0; }
+        h2 { color: var(--secondary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 0; display: flex; justify-content: space-between; align-items: center;}
         
-        select, input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; font-family: inherit; }
-        textarea { resize: vertical; min-height: 100px; }
-        textarea:focus, input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2); }
+        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; font-family: inherit; }
+        textarea { resize: vertical; min-height: 80px; }
+        textarea:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2); }
         
-        .role-selector { background: #fffbeb; padding: 15px; border-radius: 6px; border: 1px solid #fde68a; margin-bottom: 15px; }
-        .task-card { background: #f0fdfa; padding: 15px; border-radius: 6px; border: 1px solid #ccfbf1; margin-bottom: 15px; display: none; }
-        .task-card h3 { color: #0f766e; margin-top: 0; }
+        .role-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+        .role-block.chairman { background: #f0fdfa; border-color: #99f6e4; }
+        .role-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 10px; }
+        .role-header h3 { margin: 0; color: #0f766e; font-size: 1.1em; }
+        .role-header input { width: 150px; padding: 5px; }
         
-        .reflection-box { background: #fef2f2; padding: 15px; border-radius: 6px; border: 1px dashed #fca5a5; margin-bottom: 15px; }
-        .reflection-box h3 { color: #b91c1c; margin-top: 0; }
+        .task-tips { font-size: 0.9em; color: #475569; background: #fffbeb; padding: 10px; border-radius: 4px; border-left: 3px solid #fde68a; margin-bottom: 10px; }
+        
+        .draft-area { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .draft-box label { font-weight: bold; color: #0284c7; display: block; margin-bottom: 5px; font-size: 0.9em;}
+        .revised-box label { font-weight: bold; color: #b91c1c; display: block; margin-bottom: 5px; font-size: 0.9em;}
+        .revised-box textarea { border-color: #fca5a5; background: #fef2f2; }
+
+        .teacher-feedback-box { background: #eff6ff; padding: 15px; border-radius: 8px; border: 1px dashed #93c5fd; margin-bottom: 20px; }
+        .teacher-feedback-box label { font-weight: bold; color: #1e3a8a; }
 
         .schedule-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .schedule-table th, .schedule-table td { border: 1px solid #cbd5e1; padding: 10px; text-align: center; }
         .schedule-table th { background: #f1f5f9; color: #334155; }
-        .schedule-table input { border: none; background: transparent; text-align: center; padding: 5px; }
-        .schedule-table input:focus { background: #fffbeb; outline: none; }
+        .schedule-table input { border: none; background: transparent; text-align: center; padding: 5px; width: 90%; }
+        .schedule-table input:focus { background: #fffbeb; outline: none; border-bottom: 1px solid #b45309; }
 
-        .btn-export { display: block; width: 100%; margin: 15px auto 0; padding: 15px; background-color: var(--primary); color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: background 0.3s; }
-        .btn-export:hover { background-color: #0369a1; }
-        .btn-mini { background-color: #059669; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px;}
-        .btn-mini:hover { background-color: #047857; }
+        .btn-export-1 { display: block; width: 100%; padding: 15px; background-color: #059669; color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px;}
+        .btn-export-1:hover { background-color: #047857; }
+        .btn-export-2 { display: block; width: 100%; padding: 15px; background-color: var(--secondary); color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px;}
+        .btn-export-2:hover { background-color: #991b1b; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>🏆 【賓客訪港】會議規劃與除錯復盤工作檯</h1>
-        <p>「論點＋論據」組織 ＆ 溝通漏斗自我挑戰</p>
-    </div>
-
-    <div class="timer-container">
-        <span>⏳ 課堂活動時間：<span id="time-display">60:00</span></span>
-        <button class="timer-btn" onclick="startTimer()">開始計時</button>
-        <button class="timer-btn" onclick="pauseTimer()">暫停</button>
+        <h1>🏆 【賓客訪港】會議規劃與協作工作檯</h1>
+        <p>小組共編 ➡️ 老師批改 ➡️ 修正與排程定案</p>
     </div>
 
     <div class="section">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div><label>組別：</label><input type="text" id="groupName" placeholder="例如：第 5 組"></div>
-            <div><label>學生姓名：</label><input type="text" id="studentName" placeholder="輸入你的姓名"></div>
+            <div><label style="font-weight:bold;">組別 / 團隊名稱：</label><input type="text" id="groupName" placeholder="例如：第 5 組"></div>
+            <div><label style="font-weight:bold;">會議日期：</label><input type="text" id="meetingDate" placeholder="例如：2026年11月15日"></div>
         </div>
     </div>
 
-    <!-- 角色任務區 -->
+    <!-- 階段一：草擬發言 -->
     <div class="section">
-        <h2>👤 步驟一：領取角色與草擬發言</h2>
-        <div class="role-selector">
-            <label style="font-weight: bold;">請選擇你抽籤到的角色：</label>
-            <select id="roleSelect" onchange="showTaskCard()">
-                <option value="">-- 點擊選擇角色 --</option>
-                <option value="chen">陳達志 (會議主席 / 採購部主任)</option>
-                <option value="zhang">張緯翎 (與會者 / 採購部主任)</option>
-                <option value="wang">王芷君 (與會者 / 採購部主任)</option>
-                <option value="xie">謝芝婷 (與會者 / 採購部主任)</option>
-                <option value="huang">黃宜恩 (與會者 / 秘書)</option>
-            </select>
+        <h2><span>👤 階段一：小組首輪發言草稿 (共編區)</span></h2>
+        <p style="font-size: 0.9em; color: #475569;">請組員輪流根據自己的「資料卡」任務，在左側藍字區域填寫【初版草稿】。完成後匯出第一版給老師。</p>
+
+        <!-- P1 主席 -->
+        <div class="role-block chairman">
+            <div class="role-header">
+                <h3>主席 - 陳達志 (採購部主任)</h3>
+                <input type="text" id="name_p1" placeholder="飾演者姓名">
+            </div>
+            <div class="task-tips"><strong>任務：</strong>交代背景，引導發言。提議：第二天上午總部/會議，下午時代廣場。第三天上午北京道分店。</div>
+            <div class="draft-area">
+                <div class="draft-box">
+                    <label>📝 初版草稿 (交給老師前)：</label>
+                    <textarea id="draft_p1" placeholder="請草擬你的開場白與行程建議..."></textarea>
+                </div>
+                <div class="revised-box">
+                    <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
+                    <textarea id="revised_p1" placeholder="請根據老師的反饋，寫下修正後的完美台詞..."></textarea>
+                </div>
+            </div>
         </div>
 
-        <!-- 任務卡 (根據選擇動態顯示) -->
-        <div id="task-chen" class="task-card">
-            <h3>🎯 你的任務 (陳達志)：</h3>
-            <p><strong>行程建議：</strong>第一天抵港太累不排活動。第二天上午參觀總部/會議，下午參觀時代廣場。第三天上午參觀北京道分店 (人流最多)[cite: 13]。<br>
-            <strong>主席任務：</strong>必須交代開會背景，並引導同事發言[cite: 13]。</p>
-        </div>
-        <div id="task-zhang" class="task-card">
-            <h3>🎯 你的任務 (張緯翎)：</h3>
-            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀彌敦道分店，下午參觀時代廣場 (集中在第二天可省租車費)[cite: 11]。</p>
-        </div>
-        <div id="task-wang" class="task-card">
-            <h3>🎯 你的任務 (王芷君)：</h3>
-            <p><strong>行程建議：</strong>第一天下午參觀總部/會議。第二天上午參觀時代廣場，下午參觀西洋菜南街分店 (先總部後門市，最後一天純遊覽)[cite: 12]。</p>
-        </div>
-        <div id="task-xie" class="task-card">
-            <h3>🎯 你的任務 (謝芝婷)：</h3>
-            <p><strong>行程建議：</strong>第一天下午總部/會議。第二天上午時代廣場。第三天上午西洋菜南街分店 (分三天進行，以免客人勞累走馬看花)[cite: 9]。</p>
-        </div>
-        <div id="task-huang" class="task-card">
-            <h3>🎯 你的任務 (黃宜恩)：</h3>
-            <p><strong>行程建議：</strong>第一天下午新世紀廣場門市。第二天上午彌敦道分店。第三天上午才參觀總部與會議 (集中旺角免舟車勞頓，最後一天會議可作總結)[cite: 10]。</p>
+        <!-- P2 -->
+        <div class="role-block">
+            <div class="role-header">
+                <h3>與會者 A - 張緯翎 (採購部主任)</h3>
+                <input type="text" id="name_p2" placeholder="飾演者姓名">
+            </div>
+            <div class="task-tips"><strong>任務：</strong>提議：第一天下午總部/會議。第二天上午彌敦道分店，下午時代廣場 (集中第二天可省租車費)。</div>
+            <div class="draft-area">
+                <div class="draft-box">
+                    <label>📝 初版草稿 (交給老師前)：</label>
+                    <textarea id="draft_p2" placeholder="請草擬你的行程建議與理據..."></textarea>
+                </div>
+                <div class="revised-box">
+                    <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
+                    <textarea id="revised_p2" placeholder="請根據老師的反饋，寫下修正後的完美台詞..."></textarea>
+                </div>
+            </div>
         </div>
 
-        <label style="font-weight: bold; color: #334155;">📝 請運用「論點＋論據」草擬你的發言稿：</label>
-        <p style="font-size: 0.85em; color: #64748b; margin-top: 0;">寫完後請點擊下方按鈕匯出 Word，並繳交給老師批改。請靜待老師發還講評後再進行步驟二。</p>
-        <textarea id="draftText" placeholder="請寫出你的建議，並詳細說明背後的原因與數據支持..."></textarea>
-        <button class="btn-mini" onclick="exportDraftWord()">📥 匯出首輪草稿 (Word) 交給老師</button>
+        <!-- P3 -->
+        <div class="role-block">
+            <div class="role-header">
+                <h3>與會者 B - 王芷君 (採購部主任)</h3>
+                <input type="text" id="name_p3" placeholder="飾演者姓名">
+            </div>
+            <div class="task-tips"><strong>任務：</strong>提議：第一天下午總部/會議。第二天上午時代廣場，下午西洋菜南街分店 (先總部後門市)。</div>
+            <div class="draft-area">
+                <div class="draft-box">
+                    <label>📝 初版草稿 (交給老師前)：</label>
+                    <textarea id="draft_p3" placeholder="請草擬你的行程建議與理據..."></textarea>
+                </div>
+                <div class="revised-box">
+                    <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
+                    <textarea id="revised_p3" placeholder="請根據老師的反饋，寫下修正後的完美台詞..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="role-block">
+            <div class="role-header">
+                <h3>與會者 C - 謝芝婷 (採購部助理)</h3>
+                <input type="text" id="name_p4" placeholder="飾演者姓名">
+            </div>
+            <div class="task-tips"><strong>任務：</strong>提議：第一天下午總部/會議。第二天上午時代廣場。第三天上午西洋菜南街分店 (分三天以免勞累)。</div>
+            <div class="draft-area">
+                <div class="draft-box">
+                    <label>📝 初版草稿 (交給老師前)：</label>
+                    <textarea id="draft_p4" placeholder="請草擬你的行程建議與理據..."></textarea>
+                </div>
+                <div class="revised-box">
+                    <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
+                    <textarea id="revised_p4" placeholder="請根據老師的反饋，寫下修正後的完美台詞..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- P5 -->
+        <div class="role-block">
+            <div class="role-header">
+                <h3>與會者 D - 黃宜恩 (秘書)</h3>
+                <input type="text" id="name_p5" placeholder="飾演者姓名">
+            </div>
+            <div class="task-tips"><strong>任務：</strong>提議：第一天下午新世紀廣場。第二天上午彌敦道。第三天上午才參觀總部/會議 (最後開會作總結)。</div>
+            <div class="draft-area">
+                <div class="draft-box">
+                    <label>📝 初版草稿 (交給老師前)：</label>
+                    <textarea id="draft_p5" placeholder="請草擬你的行程建議與理據..."></textarea>
+                </div>
+                <div class="revised-box">
+                    <label>✨ 修正後實戰稿 (收到老師講評後填寫)：</label>
+                    <textarea id="revised_p5" placeholder="請根據老師的反饋，寫下修正後的完美台詞..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-export-1" onclick="exportDraftWord()">📥 [階段一] 匯出小組「初版草稿」交給老師批改</button>
     </div>
 
-    <!-- 復盤區 -->
+    <!-- 階段二：修正與最終行程表 -->
     <div class="section">
-        <h2>🔍 步驟二：溝通漏斗除錯與復盤</h2>
-        <div class="reflection-box">
-            <h3>⚠️ 收到老師發還的批改講評了嗎？請填寫復盤報告：</h3>
-            <p style="font-size: 0.9em; color: #7f1d1d;">1. 老師的講評指出你的發言稿在哪裡出現了「溝通漏斗」？（例如：理據不充分、語氣不佳、沒有針對議題）</p>
-            <textarea id="reflection1" style="min-height: 60px;" placeholder="寫下你的反思..."></textarea>
-            
-            <p style="font-size: 0.9em; color: #7f1d1d; margin-top: 10px;">2. 請寫出吸收老師建議後，修正過的【完美版發言稿】：</p>
-            <textarea id="reflection2" style="min-height: 100px; border-color:#fca5a5;" placeholder="請寫下你準備用來進行小組錄音實戰的最終台詞..."></textarea>
+        <h2><span>🤝 階段二：老師反饋與最終妥協行程表</span></h2>
+        
+        <div class="teacher-feedback-box">
+            <label>💬 老師/AI 的批改與建議 (請組長將評語貼在此處供全組參考)：</label>
+            <textarea id="teacherFeedback" placeholder="把老師發還的建議貼在這裡，然後回到上方紅色框框填寫修正後的實戰稿..."></textarea>
         </div>
-    </div>
 
-    <!-- 最終決策區 (組長填寫) -->
-    <div class="section">
-        <h2>🤝 步驟三：模擬會議與最終行程表 (由組長統整)</h2>
-        <p style="font-size: 0.9em; color: #475569;">請全組進行口語會議實戰。面對五人衝突的行程建議，請協調出一份大家都能接受的最終版本。</p>
+        <p style="font-size: 0.9em; color: #475569;">請全組使用「修正後的實戰稿」進行口語會議。面對五人衝突的建議，請協調出一份大家都能接受的最終行程表。</p>
         
         <table class="schedule-table">
             <tr>
@@ -150,146 +201,122 @@
                 <td><input type="text" id="d3ni" placeholder="離港"></td>
             </tr>
         </table>
-    </div>
 
-    <button class="btn-export" onclick="exportToWord()">📥 匯出個人復盤與行程報告 (Word)</button>
+        <button class="btn-export-2" onclick="exportFinalWord()">📥 [階段二] 匯出小組「最終決策報告」交給老師</button>
+    </div>
 </div>
 
 <script>
-    // Timer Logic
-    let timeInSecs = 60 * 60; 
-    let timerInterval;
-    let isRunning = false;
+    const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
 
-    function updateTimerDisplay() {
-        const m = Math.floor(timeInSecs / 60).toString().padStart(2, '0');
-        const s = (timeInSecs % 60).toString().padStart(2, '0');
-        document.getElementById('time-display').innerText = `${m}:${s}`;
-    }
-
-    function startTimer() {
-        if (!isRunning && timeInSecs > 0) {
-            isRunning = true;
-            timerInterval = setInterval(() => {
-                timeInSecs--;
-                updateTimerDisplay();
-                if (timeInSecs <= 0) {
-                    clearInterval(timerInterval);
-                    isRunning = false;
-                    alert("⏳ 60分鐘活動結束！請匯出報告繳交。");
-                }
-            }, 1000);
-        }
-    }
-
-    function pauseTimer() {
-        clearInterval(timerInterval);
-        isRunning = false;
-    }
-
-    // Task Card Display
-    function showTaskCard() {
-        const roles = ['chen', 'zhang', 'wang', 'xie', 'huang'];
-        roles.forEach(r => document.getElementById('task-' + r).style.display = 'none');
-        
-        const selected = document.getElementById('roleSelect').value;
-        if (selected) {
-            document.getElementById('task-' + selected).style.display = 'block';
-        }
-    }
-
-    // Export Draft Only (For Step 1)
+    // 匯出第一版 (僅初版草稿)
     function exportDraftWord() {
-        const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
         const gName = getVal('groupName');
-        const sName = getVal('studentName');
-        const roleSelect = document.getElementById('roleSelect');
-        const draft = getVal('draftText');
-
-        if (!roleSelect.value) {
-            alert("⚠️ 請先在上方下拉選單選擇你的角色！");
-            return;
-        }
-        
-        const role = roleSelect.options[roleSelect.selectedIndex].text;
+        const gDate = getVal('meetingDate');
 
         const htmlContent = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
         <head>
         <meta charset='utf-8'>
-        <title>首輪發言草稿</title>
+        <title>小組初版草稿</title>
         <style>
             body { font-family: 'Microsoft YaHei', sans-serif; line-height: 1.6; }
-            h1 { color: #0284c7; border-bottom: 2px solid #0284c7; padding-bottom: 10px; }
-            .box { border: 1px solid #cbd5e1; padding: 15px; background-color: #f8fafc; }
+            h1 { color: #059669; text-align: center; border-bottom: 2px solid #059669; padding-bottom: 10px; }
+            .box { border: 1px solid #cbd5e1; padding: 15px; margin-bottom: 15px; background-color: #f8fafc; }
+            .name { font-weight: bold; color: #0f766e; }
         </style>
         </head>
         <body>
-            <h1>【賓客訪港】首輪發言草稿</h1>
-            <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>學生姓名：</strong> ${sName} &nbsp;&nbsp;&nbsp; <strong>擔任角色：</strong> ${role}</p>
+            <h1>【賓客訪港】第一階段：小組初版發言草稿</h1>
+            <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>會議日期：</strong> ${gDate}</p>
+            
             <div class="box">
-                <p>${draft}</p>
+                <p class="name">主席 (陳達志) - 飾演者：${getVal('name_p1')}</p>
+                <p>${getVal('draft_p1')}</p>
             </div>
-            <br>
-            <p style="color:gray; font-size:12px;">（老師請針對學生的論點組織與理據提供講評）</p>
+            <div class="box">
+                <p class="name">與會者 A (張緯翎) - 飾演者：${getVal('name_p2')}</p>
+                <p>${getVal('draft_p2')}</p>
+            </div>
+            <div class="box">
+                <p class="name">與會者 B (王芷君) - 飾演者：${getVal('name_p3')}</p>
+                <p>${getVal('draft_p3')}</p>
+            </div>
+            <div class="box">
+                <p class="name">與會者 C (謝芝婷) - 飾演者：${getVal('name_p4')}</p>
+                <p>${getVal('draft_p4')}</p>
+            </div>
+            <div class="box">
+                <p class="name">與會者 D (黃宜恩) - 飾演者：${getVal('name_p5')}</p>
+                <p>${getVal('draft_p5')}</p>
+            </div>
         </body>
         </html>
         `;
 
-        const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${sName}_${role}_草稿.doc`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        downloadDoc(htmlContent, `${gName}_初版草稿.doc`);
     }
 
-    // Export Final Full Report (For Step 3)
-    function exportToWord() {
-        const getVal = (id) => (document.getElementById(id).value || '未填寫').replace(/\n/g, '<br>');
-        
+    // 匯出最終版 (包含修正對比與行程表)
+    function exportFinalWord() {
         const gName = getVal('groupName');
-        const sName = getVal('studentName');
-        const roleSelect = document.getElementById('roleSelect');
-        const role = roleSelect.options[roleSelect.selectedIndex] ? roleSelect.options[roleSelect.selectedIndex].text : '未選擇';
-        
-        const draft = getVal('draftText');
-        const ref1 = getVal('reflection1');
-        const ref2 = getVal('reflection2');
+        const gDate = getVal('meetingDate');
 
         const htmlContent = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
         <head>
         <meta charset='utf-8'>
-        <title>會議規劃與除錯報告</title>
+        <title>最終決策報告</title>
         <style>
             body { font-family: 'Microsoft YaHei', sans-serif; line-height: 1.6; }
-            h1 { color: #0284c7; text-align: center; border-bottom: 2px solid #0284c7; padding-bottom: 10px; }
-            h2 { color: #b45309; margin-top: 20px; background-color: #f8fafc; padding: 5px; border-left: 5px solid #b45309;}
-            .box { border: 1px solid #cbd5e1; padding: 10px 15px; margin-bottom: 10px; background-color: #fffbeb; }
-            .box-red { background-color: #fef2f2; border: 1px solid #fca5a5; padding: 10px 15px;}
+            h1 { color: #b45309; text-align: center; border-bottom: 2px solid #b45309; padding-bottom: 10px; }
+            h2 { color: #0f766e; margin-top: 20px; background-color: #f0fdfa; padding: 5px; border-left: 5px solid #0f766e;}
+            .box { border: 1px solid #cbd5e1; padding: 10px 15px; margin-bottom: 15px; }
+            .draft { color: #475569; font-size: 0.9em; text-decoration: line-through; }
+            .revised { color: #991b1b; font-weight: bold; }
             table { width: 100%; border-collapse: collapse; margin-top: 15px; }
             th, td { border: 1px solid #94a3b8; padding: 8px; text-align: center; }
             th { background-color: #e2e8f0; }
         </style>
         </head>
         <body>
-            <h1>【賓客訪港】會議規劃與除錯復盤報告</h1>
-            <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>學生姓名：</strong> ${sName} &nbsp;&nbsp;&nbsp; <strong>擔任角色：</strong> ${role}</p>
+            <h1>【賓客訪港】第二階段：修正與最終決策報告</h1>
+            <p><strong>組別：</strong> ${gName} &nbsp;&nbsp;&nbsp; <strong>會議日期：</strong> ${gDate}</p>
             
-            <h2>📝 步驟一：初版草稿 (被老師揪錯前)</h2>
-            <div class="box"><p>${draft}</p></div>
-            
-            <h2>🔍 步驟二：溝通漏斗除錯復盤</h2>
-            <p><strong>1. 老師指出的盲點與我的反思：</strong></p>
-            <div class="box-red"><p>${ref1}</p></div>
-            <p><strong>2. 修正後的完美實戰講稿：</strong></p>
-            <div class="box-red"><p>${ref2}</p></div>
+            <h2>💡 老師批改反饋</h2>
+            <div class="box" style="background: #eff6ff;">
+                <p>${getVal('teacherFeedback')}</p>
+            </div>
 
-            <h2>🤝 步驟三：全組最終妥協行程表</h2>
+            <h2>💬 組員發言修正對比</h2>
+            
+            <div class="box">
+                <p><strong>主席 (陳達志) - ${getVal('name_p1')}</strong></p>
+                <p class="draft">[初版] ${getVal('draft_p1')}</p>
+                <p class="revised">[最終版] ${getVal('revised_p1')}</p>
+            </div>
+            <div class="box">
+                <p><strong>與會者 A (張緯翎) - ${getVal('name_p2')}</strong></p>
+                <p class="draft">[初版] ${getVal('draft_p2')}</p>
+                <p class="revised">[最終版] ${getVal('revised_p2')}</p>
+            </div>
+            <div class="box">
+                <p><strong>與會者 B (王芷君) - ${getVal('name_p3')}</strong></p>
+                <p class="draft">[初版] ${getVal('draft_p3')}</p>
+                <p class="revised">[最終版] ${getVal('revised_p3')}</p>
+            </div>
+            <div class="box">
+                <p><strong>與會者 C (謝芝婷) - ${getVal('name_p4')}</strong></p>
+                <p class="draft">[初版] ${getVal('draft_p4')}</p>
+                <p class="revised">[最終版] ${getVal('revised_p4')}</p>
+            </div>
+            <div class="box">
+                <p><strong>與會者 D (黃宜恩) - ${getVal('name_p5')}</strong></p>
+                <p class="draft">[初版] ${getVal('draft_p5')}</p>
+                <p class="revised">[最終版] ${getVal('revised_p5')}</p>
+            </div>
+
+            <h2>🤝 全組最終妥協行程表</h2>
             <table>
                 <tr><th>時段</th><th>第一日 (8/5)</th><th>第二日 (9/5)</th><th>第三日 (10/5)</th></tr>
                 <tr><td>上午</td><td>${getVal('d1am')}</td><td>${getVal('d2am')}</td><td>${getVal('d3am')}</td></tr>
@@ -300,11 +327,15 @@
         </html>
         `;
 
-        const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+        downloadDoc(htmlContent, `${gName}_最終決策報告.doc`);
+    }
+
+    function downloadDoc(content, filename) {
+        const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${sName}_訪港會議規劃與復盤.doc`;
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
